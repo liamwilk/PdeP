@@ -1,0 +1,24 @@
+import TP.*
+
+describe "Tests del TP" {
+	test "Tiene una gran sequía, cambiando lo sembrado a soja, fumigando y fertilizando"{
+		donPonciano.granSequia(soja)
+		assert.equals(soja, donPonciano.tipoDeCosecha())
+		donPonciano.fumigar()
+		assert.equals(-563900, cuentaCorriente.verBalance())
+		donPonciano.aplicarFertilizantes()
+		assert.that(soja.estaFertilizado())
+	}
+	test "Cosecha el trigo y cambia lo sembrado a maiz"{
+		donPonciano.nuevaTemporada(maiz, 12)
+		assert.equals(maiz, donPonciano.tipoDeCosecha())
+		assert.equals(105000, cuentaCorriente.verBalance())
+	}
+	test "Fumiga, cambia lo sembrado a papa y cosecha lo mismo, cambiando a soja"{
+		donPonciano.fumigar()
+		donPonciano.granSequia(papa)
+		assert.equals(papa, donPonciano.tipoDeCosecha())
+		donPonciano.nuevaTemporada(soja, 11)
+		assert.equals(986075, cuentaCorriente.verBalance())
+	}
+}
