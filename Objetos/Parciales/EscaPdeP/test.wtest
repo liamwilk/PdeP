@@ -1,0 +1,19 @@
+import salas.*
+import escapista.*
+import grupos.*
+
+describe "Tests de un grupo"{
+	const juan = new Escapista(contadorPartidas = 5, maestria = amateur, saldo = 14000)
+	const martin = new Escapista(contadorPartidas = 3, maestria = profesional, saldo = 5000)
+	const pedro = new Escapista(contadorPartidas = 3, maestria = profesional, saldo = 900)
+	const grupoRico = new Grupo(integrantes = [juan, martin])
+	const grupoPobre = new Grupo(integrantes = [martin, pedro])
+	const sala = new SalaAnime(nombre = "otaku", dificultad = 8)
+	
+	test "Grupo puede pagar sala correctamente"{
+		assert.that(grupoRico.puedenPagar(sala))
+	}
+	test "Grupo no puede pagar sala correctamente"{
+		assert.notThat(grupoPobre.puedenPagar(sala))
+	}
+}

@@ -1,0 +1,14 @@
+import parcial.*
+
+describe "Probar calificación otorgada" {
+	const beto = new Cocinero(especialidad = new Pastelero(nivelDulzor = 100))
+	
+	test "Hay puntaje sin pasarse del máximo"{
+		const torta = new Postre (cantColores = 5, cocinero = beto)
+		assert.equals(6, beto.calificacionPlato(torta))
+	}
+	test "Hay puntaje pasandose del máximo"{
+		const fideos = new Principal(cantAzucar = 9999, cocinero = beto, esBonito = false)
+		assert.equals(10,beto.calificacionPlato(fideos))
+	}
+}
