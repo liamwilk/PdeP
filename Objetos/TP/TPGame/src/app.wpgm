@@ -1,0 +1,5 @@
+import _gameManager.*
+
+program application {
+    gameManager.start()
+}
