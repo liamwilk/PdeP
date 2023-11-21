@@ -1,0 +1,89 @@
+import Planetas.*
+import Personas.*
+import Construcciones.*
+
+	// Para primera parte de tests
+
+	const tatooine = new Planeta(habitantes = [anakin, yoda, palpatine, luke], construcciones = [murallaChina, murallita, museoBritanico])
+	const balosar = new Planeta(habitantes = [bob, alberto, juan, tito, pedro], construcciones = [murallita])
+	
+	const anakin = new Persona(edad = 20, recursos = 40, planeta = tatooine)
+	const yoda = new Persona(edad = 40, recursos = 35, planeta = tatooine)
+	const palpatine = new Persona(edad = 68, recursos = 800, planeta = tatooine)
+	const luke = new Persona(edad = 19, recursos = 10, planeta = tatooine)
+	
+	const murallaChina = new Muralla(longitud = 5000)
+	const murallita = new Muralla(longitud = 5)
+	const museoBritanico = new Museo(indiceImportancia = 4, superficieCubierta = 50)
+	
+	// Para segunda parte de tests
+	
+	const bob = new Constructor(recursos = 5, edad = 30, planeta = balosar, cantidadConstrucciones = 4, regionPlaneta = montania)
+	const alberto = new Constructor(recursos = 20, edad = 25, planeta = balosar, cantidadConstrucciones = 5, regionPlaneta = playa)
+	const juan = new Constructor(recursos = 30, edad = 18, planeta = balosar, cantidadConstrucciones = 5, regionPlaneta = llanura)
+	const tito = new Constructor(recursos = 20, edad = 32, planeta = balosar, cantidadConstrucciones = 4, regionPlaneta = costa)
+	const pedro = new Productor(edad = 29, planeta = balosar, tecnicas = ["cultivo", "ataque"])
+
+describe "Pruebas de primera parte" {
+	
+	
+	test "La delegación diplomática está formada por tres de ellas" {
+		
+		const cantidadGente = tatooine.delegacionDiplomatica().size()
+		assert.equals(3, cantidadGente)
+	}
+	
+	test "Es valioso Tatooine" {
+		
+		assert.that(tatooine.esValioso())
+	}
+	
+	test "No es valioso Balosar" {
+		
+		assert.notThat(balosar.esValioso())
+	}
+	
+	test "Anakin gasta todo su presupuesto y gana 15" {
+		
+		anakin.gastarMonedas(anakin.cantidadRecursos())
+		anakin.ganarMonedas(15)
+		
+		assert.equals(15, anakin.cantidadRecursos())
+	}
+	
+	test "Palpatine cumple años" {
+		
+		palpatine.cumplirAnos()
+		assert.equals(69, palpatine.cantidadAnos())
+	}
+}
+
+
+describe "Pruebas de la segunda parte" {
+	
+	test "Bob y Tito trabajan bien" {
+		
+		bob.trabajar(balosar, 5)
+		tito.trabajar(balosar, 3)
+		
+		assert.equals(5, bob.cuantasConstruccionesHizo())
+		assert.equals(5, tito.cuantasConstruccionesHizo())
+	}
+	
+	test "Pedro trabaja bien" {
+		
+		pedro.trabajar(balosar, 2)
+		
+		assert.equals(38, pedro.cantidadRecursos())
+	}
+	
+	test "Alberto y Juan forman parte de la delegación diplomática" {
+		
+		alberto.trabajar(balosar, 5)
+		juan.trabajar(balosar, 7)
+		
+		const cantidadGente = balosar.delegacionDiplomatica().size()
+		assert.equals(2, cantidadGente)
+		
+	}
+}
